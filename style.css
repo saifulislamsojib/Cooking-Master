@@ -1,0 +1,20 @@
+body{
+    background-color: hsl(48deg 79% 66%);
+}
+.input-section{
+    max-width: 610px;
+    margin: 0 auto;
+}
+.food{
+    border-radius: 15px;
+}
+.food-img{
+    border-radius: 15px 15px 0 0;
+}
+.single{
+    max-width: 550px;
+}
+.single-img{
+    max-height: 350px;
+    overflow: hidden;
+}
