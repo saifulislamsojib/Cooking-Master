@@ -3,6 +3,8 @@ const foodInput = document.getElementById('food-input');
 const allMeals = document.getElementById('all-meals');
 const errorMessage = document.getElementById('error-message');
 const single = document.getElementById('single');
+
+// Load Meals Data
 const loadData = () => {
     single.innerHTML = "";
     if (!foodInput.value) {
@@ -10,11 +12,14 @@ const loadData = () => {
         errorMessage.innerText = "Please search a meal..";
     }
     else {
-        fetch(`${baseUrl}filter.php?i=${foodInput.value}`)
+        fetch(`${baseUrl}search.php?s=${foodInput.value}`)
             .then(res => res.json())
-            .then(data => displayMeals(data.meals));
+            .then(data => displayMeals(data.meals))
     }
-}
+    foodInput.value = "";
+};
+
+// Display Meals Data
 const displayMeals = (meals) => {
     if (!meals) {
         allMeals.innerHTML = "";
@@ -35,15 +40,37 @@ const displayMeals = (meals) => {
             
         })
         allMeals.innerHTML = output;
-    }
-}
+    };
+};
+
+// Single Meal Load Data
 const singleLoad = (idMeal) => {
     fetch(`${baseUrl}lookup.php?i=${idMeal}`)
     .then(res => res.json())
     .then(data => singleMeal(data.meals[0]));
-}
+};
+
+// Display single Meal Data
 const singleMeal = (data) => {
-    const{strMealThumb, strMeal, strIngredient1, strIngredient2, strIngredient3, strIngredient4, strIngredient5, strIngredient6, strMeasure1, strMeasure2, strMeasure3, strMeasure4, strMeasure5, strMeasure6} = data;
+    const{strMealThumb, strMeal, strIngredient1, strIngredient2, strIngredient3, strIngredient4, strIngredient5, strIngredient6, strIngredient7, strIngredient8, strIngredient9, strIngredient10, strIngredient11, strIngredient12, strIngredient13, strIngredient14, strIngredient15, strIngredient16, strMeasure1, strMeasure2, strMeasure3, strMeasure4, strMeasure5, strMeasure6, strMeasure7, strMeasure8, strMeasure9, strMeasure10, strMeasure11, strMeasure12, strMeasure13, strMeasure14, strMeasure15, strMeasure16} = data;
+    const ingredients = [
+        `${strIngredient1} ${strMeasure1}`,
+        `${strIngredient2} ${strMeasure2}`,
+        `${strIngredient3} ${strMeasure3}`,
+        `${strIngredient4} ${strMeasure4}`,
+        `${strIngredient5} ${strMeasure5}`,
+        `${strIngredient6} ${strMeasure6}`,
+        `${strIngredient7} ${strMeasure7}`,
+        `${strIngredient8} ${strMeasure8}`,
+        `${strIngredient9} ${strMeasure9}`,
+        `${strIngredient10} ${strMeasure10}`,
+        `${strIngredient11} ${strMeasure11}`,
+        `${strIngredient12} ${strMeasure12}`,
+        `${strIngredient13} ${strMeasure13}`,
+        `${strIngredient14} ${strMeasure14}`,
+        `${strIngredient15} ${strMeasure15}`,
+        `${strIngredient16} ${strMeasure16}`,
+    ];
     single.innerHTML = `
         <div class="bg-white single mx-auto food">
             <div class="food bg-white">
@@ -53,14 +80,15 @@ const singleMeal = (data) => {
                 <div class="p-3">
                     <h3 class="text-center">${strMeal}</h3>
                     <h4 class="my-4">Ingredients</h4>
-                    <p><i class="fas fa-check-square text-primary"></i> <span class="ms-2">${strMeasure1}, ${strIngredient1}</span></p>
-                    <p><i class="fas fa-check-square text-primary"></i> <span class="ms-2">${strMeasure2}, ${strIngredient2}</span></p>
-                    <p><i class="fas fa-check-square text-primary"></i> <span class="ms-2">${strMeasure3}, ${strIngredient3}</span></p>
-                    <p><i class="fas fa-check-square text-primary"></i> <span class="ms-2">${strMeasure4}, ${strIngredient4}</span></p>
-                    <p><i class="fas fa-check-square text-primary"></i> <span class="ms-2">${strMeasure5}, ${strIngredient5}</span></p>
-                    <p><i class="fas fa-check-square text-primary"></i> <span class="ms-2">${strMeasure6}, ${strIngredient6}</span></p>
+                    <div id="ingredients"></div>
                 </div>
             </div>
         </div>
-        `
-}
+         `
+    ingredients.map(ingredient => {
+        const ingredientsItems = document.getElementById('ingredients');
+        if(ingredient !== " "){
+            ingredientsItems.innerHTML += `<p><i class="fas fa-check-square text-primary"></i> <span class="ms-2">${ingredient}</span></p>`
+        }
+    })
+};
