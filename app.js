@@ -19,6 +19,14 @@ const loadData = () => {
     foodInput.value = "";
 };
 
+// Display Meals Data By Enter Key
+const enterKeypress = (e) => {
+    if (e.key === "Enter") {
+        loadData();
+    }
+};
+foodInput.addEventListener("keypress", enterKeypress)
+
 // Display Meals Data
 const displayMeals = (meals) => {
     if (!meals) {
