@@ -87,7 +87,7 @@ const singleMeal = (data) => {
          `
     ingredients.map(ingredient => {
         const ingredientsItems = document.getElementById('ingredients');
-        if(ingredient !== " " && ingredient !== "  " && ingredient !== "null null"){
+        if(ingredient !== " " && ingredient !== "  " && ingredient !== "null null" && ingredient !== " null" && ingredient !== "null "){
             ingredientsItems.innerHTML += `<p><i class="fas fa-check-square text-primary"></i> <span class="ms-2">${ingredient}</span></p>`
         }
     })
