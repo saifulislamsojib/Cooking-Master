@@ -3,10 +3,12 @@ const foodInput = document.getElementById('food-input');
 const allMeals = document.getElementById('all-meals');
 const errorMessage = document.getElementById('error-message');
 const single = document.getElementById('single');
+const results = document.getElementById('results');
 
 // Load Meals Data
 const loadData = () => {
     single.innerHTML = "";
+    results.innerText = "";
     if (!foodInput.value) {
         allMeals.innerHTML = "";
         errorMessage.innerText = "Please search a meal..";
@@ -60,7 +62,25 @@ const singleLoad = (idMeal) => {
 
 // Display single Meal Data
 const singleMeal = (data) => {
-    const{strMealThumb, strMeal, strIngredient1, strIngredient2, strIngredient3, strIngredient4, strIngredient5, strIngredient6, strIngredient7, strIngredient8, strIngredient9, strIngredient10, strIngredient11, strIngredient12, strIngredient13, strIngredient14, strIngredient15, strIngredient16, strMeasure1, strMeasure2, strMeasure3, strMeasure4, strMeasure5, strMeasure6, strMeasure7, strMeasure8, strMeasure9, strMeasure10, strMeasure11, strMeasure12, strMeasure13, strMeasure14, strMeasure15, strMeasure16} = data;
+    const{strMealThumb, strMeal} = data;
+    single.innerHTML = `
+        <div class="bg-white single mx-auto food">
+            <div class="food bg-white">
+                <img class="img-fluid food-img" src="${strMealThumb}" alt="">
+                <div class="p-3">
+                    <h3 class="text-center">${strMeal}</h3>
+                    <h4 class="my-4">Ingredients</h4>
+                    <div id="ingredients"></div>
+                </div>
+            </div>
+        </div>
+         `
+    displayIngredients(data);
+};
+
+// Display Ingredients
+const displayIngredients = (data) => {
+    const{strIngredient1, strIngredient2, strIngredient3, strIngredient4, strIngredient5, strIngredient6, strIngredient7, strIngredient8, strIngredient9, strIngredient10, strIngredient11, strIngredient12, strIngredient13, strIngredient14, strIngredient15, strIngredient16, strIngredient17, strIngredient18, strIngredient19, strIngredient20, strMeasure1, strMeasure2, strMeasure3, strMeasure4, strMeasure5, strMeasure6, strMeasure7, strMeasure8, strMeasure9, strMeasure10, strMeasure11, strMeasure12, strMeasure13, strMeasure14, strMeasure15, strMeasure16, strMeasure17, strMeasure18, strMeasure19, strMeasure20} = data;
     const ingredients = [
         `${strIngredient1} ${strMeasure1}`,
         `${strIngredient2} ${strMeasure2}`,
@@ -78,25 +98,15 @@ const singleMeal = (data) => {
         `${strIngredient14} ${strMeasure14}`,
         `${strIngredient15} ${strMeasure15}`,
         `${strIngredient16} ${strMeasure16}`,
+        `${strIngredient17} ${strMeasure17}`,
+        `${strIngredient18} ${strMeasure18}`,
+        `${strIngredient19} ${strMeasure19}`,
+        `${strIngredient20} ${strMeasure20}`,
     ];
-    single.innerHTML = `
-        <div class="bg-white single mx-auto food">
-            <div class="food bg-white">
-                <div class="single-img">
-                    <img class="img-fluid food-img" src="${strMealThumb}" alt="">
-                </div>
-                <div class="p-3">
-                    <h3 class="text-center">${strMeal}</h3>
-                    <h4 class="my-4">Ingredients</h4>
-                    <div id="ingredients"></div>
-                </div>
-            </div>
-        </div>
-         `
     ingredients.map(ingredient => {
         const ingredientsItems = document.getElementById('ingredients');
         if(ingredient !== " " && ingredient !== "  " && ingredient !== "null null" && ingredient !== " null" && ingredient !== "null "){
             ingredientsItems.innerHTML += `<p><i class="fas fa-check-square text-primary"></i> <span class="ms-2">${ingredient}</span></p>`
         }
     })
-};
+}
