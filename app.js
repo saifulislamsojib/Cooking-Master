@@ -11,12 +11,13 @@ const loadData = () => {
     results.innerText = "";
     if (!foodInput.value) {
         allMeals.innerHTML = "";
-        errorMessage.innerText = "Please search a meal..";
+        errorHandler("Please search a meal..");
     }
     else {
         fetch(`${baseUrl}search.php?s=${foodInput.value}`)
             .then(res => res.json())
             .then(data => displayMeals(data.meals))
+            .catch( () => errorHandler("Something went wrong!! Please try again later!."));
     }
     foodInput.value = "";
 };
@@ -33,11 +34,11 @@ foodInput.addEventListener("keypress", enterKeypress)
 const displayMeals = (meals) => {
     if (!meals) {
         allMeals.innerHTML = "";
-        errorMessage.innerText = "Sorry, the Food Not Found..";
+        errorHandler("Sorry, the Food Not Found..");
     }
     else{
         let output = "";
-        errorMessage.innerText = "";
+        errorHandler("");
         meals.forEach(meal => {
             const {strMeal, strMealThumb, idMeal} = meal;
             output += `
@@ -57,7 +58,8 @@ const displayMeals = (meals) => {
 const singleLoad = (idMeal) => {
     fetch(`${baseUrl}lookup.php?i=${idMeal}`)
     .then(res => res.json())
-    .then(data => singleMeal(data.meals[0]));
+    .then(data => singleMeal(data.meals[0]))
+    .catch( () => errorHandler("Something went wrong!! Please try again later!."));
 };
 
 // Display single Meal Data
@@ -109,4 +111,9 @@ const displayIngredients = (data) => {
             ingredientsItems.innerHTML += `<p><i class="fas fa-check-square text-primary"></i> <span class="ms-2">${ingredient}</span></p>`
         }
     })
+}
+
+// error Handler
+const errorHandler = err => {
+    errorMessage.innerText = err;
 }
